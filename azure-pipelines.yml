@@ -10,32 +10,25 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-    vstsFeed: 'my-vsts-feed' # A series of numbers and letters
+- task: NuGetToolInstaller@1
 
-- task: DotNetCoreCLI@2
-  displayName: 'Install dotnetsay'
+- task: NuGetCommand@2
   inputs:
-    command: custom
-    custom: tool
-    arguments: 'install -g dotnetsay'
+    restoreSolution: '$(solution)'
 
-- task: DotNetCoreCLI@2
+- task: VSBuild@1
   inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
-- script: dotnet test <test-project> --logger trx
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
+- task: VSTest@2
   inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
-
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
