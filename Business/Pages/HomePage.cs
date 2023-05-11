@@ -21,16 +21,50 @@ namespace Business.Pages
 
         public IWebElement GetCareersLink()
         {
-            return wait.Until(ExpectedConditions.ElementIsVisible(careersLink));
+            while (true)
+            {
+                try
+                {
+                    return driver.FindElement(careersLink);
+                }
+                catch (NoSuchElementException)
+                {
+                    Log.Info("CareersLink doesnt visible. Reloading page...");
+                    Helper.ReloadPage();
+                }
+            } 
         }
 
         public IWebElement GetAboutLink()
         {
-            return wait.Until(ExpectedConditions.ElementIsVisible(aboutLink));
+            while (true)
+            {
+                try
+                {
+                    return driver.FindElement(aboutLink);
+                }
+                catch (NoSuchElementException)
+                {
+                    Log.Info("AboutLink doesnt visible. Reloading page...");
+                    Helper.ReloadPage();
+                }
+            }
         }
+
         public IWebElement GetInsightsLink()
         {
-            return wait.Until(ExpectedConditions.ElementIsVisible(insightsLink));
+            while (true)
+            {
+                try
+                {
+                    return driver.FindElement(insightsLink);
+                }
+                catch (NoSuchElementException)
+                {
+                    Log.Info("InsightsLink doesnt visible. Reloading page...");
+                    Helper.ReloadPage();
+                }
+            }
         }
 
         public IWebElement GetMagnifierIconField()

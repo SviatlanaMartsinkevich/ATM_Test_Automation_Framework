@@ -16,8 +16,8 @@ namespace Tests
          public void ValidateThatUserCanSearchForAPositionBasedOnCriteriaTest(string programmingLanguage, string location)
          {
             Log.Info("Start ValidateThatUserCanSearchForAPositionBasedOnCriteriaTest");
-            HomePageActions honaPgeActions = new HomePageActions(DriverHolder.Driver);
-            honaPgeActions.ClickCareersLink();
+            HomePageActions homePgeActions = new HomePageActions(DriverHolder.Driver);
+            homePgeActions.ClickCareersLink();
 
             CareersPageAction careersPageAction = new CareersPageAction(DriverHolder.Driver);
             careersPageAction.EnterDataInSearchSectionWitnInputDataAndRemoteCheckbox(programmingLanguage, location);
