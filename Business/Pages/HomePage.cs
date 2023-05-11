@@ -21,7 +21,8 @@ namespace Business.Pages
 
         public IWebElement GetCareersLink()
         {
-            while (true)
+            int count = 0;
+            while (count <= 5)
             {
                 try
                 {
@@ -30,14 +31,17 @@ namespace Business.Pages
                 catch (NoSuchElementException)
                 {
                     Log.Info("CareersLink doesnt visible. Reloading page...");
+                    count++;
                     Helper.ReloadPage();
                 }
             } 
+            return null;
         }
 
         public IWebElement GetAboutLink()
         {
-            while (true)
+            int count = 0;
+            while (count <= 5)
             {
                 try
                 {
@@ -47,13 +51,16 @@ namespace Business.Pages
                 {
                     Log.Info("AboutLink doesnt visible. Reloading page...");
                     Helper.ReloadPage();
+                    count++;
                 }
             }
+            return null;
         }
 
         public IWebElement GetInsightsLink()
         {
-            while (true)
+            int count = 0;
+            while (count <= 5 )
             {
                 try
                 {
@@ -63,12 +70,16 @@ namespace Business.Pages
                 {
                     Log.Info("InsightsLink doesnt visible. Reloading page...");
                     Helper.ReloadPage();
+                    count++;
                 }
             }
+            return null;
         }
 
         public IWebElement GetMagnifierIconField()
-        {while (true)
+        {
+            int count = 0;
+            while (count <= 5)
             {
                 try
                 {
@@ -78,8 +89,10 @@ namespace Business.Pages
                 {
                     Log.Info("magnifierIconField doesnt visible. Reloading page...");
                     Helper.ReloadPage();
+                    count++;
                 }
             }
+            return null;
         }
 
         public IWebElement GetSearchField()
