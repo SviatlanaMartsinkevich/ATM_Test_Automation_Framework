@@ -8,7 +8,7 @@ namespace Business.Pages
     {
         private By swipeRightCarouselLink = By.ClassName("slider__right-arrow");
         private By readMoreLink = By.XPath("//button[@class = 'slider__right-arrow']/../..//child::a[1]");
-        private By articleNameField = By.XPath("//div[@class = 'article__container']//b");
+        private By articleNameField = By.XPath("//div[@class = 'article__container']//span//span");
 
         public InsightsPage(IWebDriver driver) : base(driver)
         {

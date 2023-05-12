@@ -61,7 +61,7 @@ namespace Tests
             Assert.AreEqual(fileName, downloadedFileName);
          }
 
-         [TestCase("Breaking Down Two Techniques to Stay Ahead of Cybersecurity Threats")]
+         [TestCase("How Machine Learning & Differential Privacy Can Be Used to Anonymize Production Data")]
          [Test, Description("Task#4")]
          public void ValidateTitleOfTheArticleMatchesWithTitleInCarouselTest(string articleName)
          {
