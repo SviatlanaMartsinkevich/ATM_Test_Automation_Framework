@@ -8,10 +8,9 @@ pipeline {
 
     triggers {
         // Run on pull request to branch
-        pullRequest {
+        pullRequest :
             branchTargetBranch = 'master'
-            triggerPhrase = 'run tests'
-        }
+            
         // Run on schedule (every day at 8am)
         cron('0 8 * * *')
         // Run by manual start
