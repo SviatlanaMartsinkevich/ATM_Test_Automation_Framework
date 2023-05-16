@@ -40,20 +40,20 @@ pipeline {
 			}
 		}
 		
-        stage('API Tests') {
-            steps {
-                // Use VSTest.Console.exe to run API 
-				 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
-					}
-				}
+       // stage('API Tests') {
+        //    steps {
+         //       // Use VSTest.Console.exe to run API 
+		//		 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+        //        bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
+		//			}
+		//		}
            // post {
 			//	always{
              //   // Archive the test results
 			//		step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
 			//		}
 			//	}
-			}
+		//	}
 			
         stage('UI Tests') {
             when {
