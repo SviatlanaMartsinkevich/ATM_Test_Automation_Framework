@@ -24,14 +24,15 @@ pipeline {
 			)
 	}
 
-	 stage('NuGet Package Restore') {
+	
+    stages {
+		stage('NuGet Package Restore') {
             steps {
                 // Restore NuGet packages
                 bat 'nuget restore ATM_Test_Automation_Framework.sln'
             }
         }
-
-    stages {
+	
 		stage('Build') {
 			steps{
 			// bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
