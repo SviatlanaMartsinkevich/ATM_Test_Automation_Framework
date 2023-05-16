@@ -23,7 +23,7 @@ namespace Core.Helper
         public static string TakeBrowserScreenshot()
         {
             var screenshotPath = Path.Combine(Environment.CurrentDirectory, "Display" + NewScreenshotName);
-            var image = DriverHolder.Driver.TakeScreenshot(); // Browser == IWebDriver here
+            var image = DriverHolder.Driver.TakeScreenshot(); 
             image.SaveAsFile(screenshotPath, OpenQA.Selenium.ScreenshotImageFormat.Jpeg);
             return screenshotPath;
         }
