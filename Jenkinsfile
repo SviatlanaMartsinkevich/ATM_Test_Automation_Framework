@@ -27,7 +27,7 @@ pipeline {
     stages {
 		stage('Build') {
 			steps{
-			 restore ATM_Test_Automation_Framework.sln"
+			 bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
              bat "dotnet build ATM_Test_Automation_Framework.sln --configuration Release"
 			}
 		}
