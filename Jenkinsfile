@@ -21,8 +21,8 @@ pipeline {
         string(
             name: 'BROWSER',
             description: 'Select browser to run UI tests against'
-        )
-    }
+			)
+	}
 
     stages {
         stage('API Tests') {
@@ -31,14 +31,15 @@ pipeline {
                 bat "dotnet build ATM_Test_Automation_Framework.sln --configuration Release"
                 // Use VSTest.Console.exe to run API tests
                 bat "dotnet vstest Tests/bin/Release/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API"
-            }
+				}
             post {
 				always{
                 // Archive the test results
-                step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
+					step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
+					}
 				}
-            }
-        }
+			}
+			
         stage('UI Tests') {
             when {
                 // Run UI tests after API tests
@@ -49,18 +50,19 @@ pipeline {
                       params.BROWSER == "${BROWSER}"
 					 }
                     }
-                }
-            }
+				   }
+				
             steps {
-                // Use VSTest.Console.exe to run UI tests with selected browser
-                bat "dotnet vstest Tests/bin/Release/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
-            }
+					// Use VSTest.Console.exe to run UI tests with selected browser
+					bat "dotnet vstest Tests/bin/Release/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
+                  }
             post {
-				always{
-                // Archive the test results and screenshots
-                step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
-                archiveArtifacts 'Tests/bin/Release/screenshots/*.png'
-				}
-            }
-        }
+					always{
+					// Archive the test results and screenshots
+					step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
+					archiveArtifacts 'Tests/bin/Release/screenshots/*.png'
+						}
+				}		 
+		}
     }
+}
