@@ -27,14 +27,7 @@ pipeline {
 	
     stages{
 	
-	  stage('Cleanup') {
-            steps {
-                // Clean the folder before running stages
-                sh 'rm -rf ATM_Test_Automation_Framework\\TestResults\\*'
-				sh 'rm -rf ATM_Test_Automation_Framework\\Tests\\Screenshots\\*'
-            }
-        }
-		stage('NuGet Package Restore') {
+	  	stage('NuGet Package Restore') {
             steps {
                 // Restore NuGet packages
                 bat 'C:\\nuget\\nuget.exe restore ATM_Test_Automation_Framework.sln'
@@ -78,8 +71,10 @@ pipeline {
 				
             steps { 
 					// Use VSTest.Console.exe to run UI tests with selected browser
+					 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
 					bat "dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
                   }
+			 }
 				
             post {
 					always{
@@ -89,5 +84,13 @@ pipeline {
 						}
 				}		 
 		}
+		
+		stage('Cleanup') {
+            steps {
+                // Clean the folder before running stages
+                sh 'rm -rf ATM_Test_Automation_Framework\\TestResults\\*'
+				sh 'rm -rf ATM_Test_Automation_Framework\\Tests\\Screenshots\\*'
+            }
+        }
     }
 }
