@@ -30,8 +30,8 @@ pipeline {
 	  stage('Cleanup') {
             steps {
                 // Clean the folder before running stages
-                sh 'rm -rf ATM_Test_Automation_Framework\TestResults\*'
-				sh 'rm -rf ATM_Test_Automation_Framework\Tests\Screenshots\*'
+                sh 'rm -rf ATM_Test_Automation_Framework\\TestResults\\*'
+				sh 'rm -rf ATM_Test_Automation_Framework\\Tests\\Screenshots\\*'
             }
         }
 		stage('NuGet Package Restore') {
