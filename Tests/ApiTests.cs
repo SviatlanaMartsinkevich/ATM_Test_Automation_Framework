@@ -32,6 +32,7 @@ namespace Tests
             var keys = userDTOBuilder.GetUsers().FirstOrDefault().ToDictionary().Keys.ToList();
             var list = new List<object> (){"Id", "Name", "Username", "Email", "Address", "Phone",   "Website",  "Company"};
 
+            Log.Info("Status code is " + userDTOBuilder.GetRestResponse().StatusCode);
             Assert.AreEqual(HttpStatusCode.OK, userDTOBuilder.GetRestResponse().StatusCode);
             Assert.IsTrue(Enumerable.SequenceEqual(keys,list));
         }
@@ -47,6 +48,7 @@ namespace Tests
                                     .CreateResponse(GetRestClient())
                                     .Build();
 
+            Log.Info("Status code is " + userDTOBuilder.GetRestResponse().StatusCode);
             Assert.AreEqual(HttpStatusCode.OK, userDTOBuilder.GetRestResponse().StatusCode);
             Assert.NotNull(userDTOBuilder.GetRestResponse().ContentType);
             Assert.AreEqual(userDTOBuilder.GetRestResponse().ContentHeaders.First().Value, "application/json; charset=utf-8");
@@ -74,6 +76,7 @@ namespace Tests
 
             }
 
+            Log.Info("Status code is " + userDTOBuilder.GetRestResponse().StatusCode);
             Assert.AreEqual(userDTOBuilder.GetUsers().Count, 10);
             Assert.AreEqual(idCount.Count, 10);
             Assert.AreEqual(HttpStatusCode.OK, userDTOBuilder.GetRestResponse().StatusCode);
@@ -92,6 +95,7 @@ namespace Tests
                                     .CreateResponse(GetRestClient())
                                     .Build();
 
+            Log.Info("Status code is " + userDTOBuilder.GetRestResponse().StatusCode);
             Assert.IsNotEmpty(userDTOBuilder.GetRestResponse().Content);
             Assert.IsTrue(userDTOBuilder.GetRestResponse().Content.Contains("id"));
             Assert.AreEqual(HttpStatusCode.Created, userDTOBuilder.GetRestResponse().StatusCode);
@@ -108,6 +112,7 @@ namespace Tests
                                     .CreateResponse(GetRestClient())
                                     .Build();
 
+            Log.Info("Status code is " + userDTOBuilder.GetRestResponse().StatusCode);
             Assert.AreEqual(HttpStatusCode.NotFound, userDTOBuilder.GetRestResponse().StatusCode);
         }
     }

@@ -2,6 +2,7 @@
 using Business.Steps;
 using Core.BaseEntities;
 using Core.Core;
+using log4net;
 using NUnit.Framework;
 
 namespace Tests
@@ -11,6 +12,7 @@ namespace Tests
     {
          private static string filePath = System.Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads";
 
+         [Category("UI")]
          [TestCase("PHP", "All Locations")]
          [Test, Description("Task#1")]
          public void ValidateThatUserCanSearchForAPositionBasedOnCriteriaTest(string programmingLanguage, string location)
@@ -28,6 +30,7 @@ namespace Tests
             Assert.That(jobDetailPage.GetDetailedContentField().Text.Contains(programmingLanguage));
          }
 
+         [Category("UI")]
          [TestCase("BLOCKCHAIN")]
          [TestCase("Cloud")]
          [TestCase("Automation")]
@@ -46,6 +49,7 @@ namespace Tests
                  resultPageActions.GetResultWithFilter(inputData).Count, "Not all links in a list contain a word '" + inputData + "' in the text");
          }
 
+         [Category("UI")]
          [TestCase("EPAM_Corporate_Overview_2023.pdf")]
          [Test, Description("Task#3")]
          public void ValidateFileDownloadFunctionWorksAsExpectedTest(string fileName)
@@ -61,6 +65,7 @@ namespace Tests
             Assert.AreEqual(fileName, downloadedFileName);
          }
 
+         [Category("UI")]
          [TestCase("How Machine Learning & Differential Privacy Can Be Used to Anonymize Production Data")]
          [Test, Description("Task#4")]
          public void ValidateTitleOfTheArticleMatchesWithTitleInCarouselTest(string articleName)
