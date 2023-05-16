@@ -31,6 +31,7 @@ pipeline {
             steps {
                 // Clean the folder before running stages
                 sh 'rm -rf ATM_Test_Automation_Framework\TestResults\*'
+				sh 'rm -rf ATM_Test_Automation_Framework\Tests\Screenshots\*'
             }
         }
 		stage('NuGet Package Restore') {
@@ -84,7 +85,7 @@ pipeline {
 					always{
 					// Archive the test results and screenshots
 					junit 'Tests/bin/Debug/Tests.XML'
-					archiveArtifacts 'Tests/screenshots/*.png'
+					archiveArtifacts 'Tests/Screenshots/*.png'
 						}
 				}		 
 		}
