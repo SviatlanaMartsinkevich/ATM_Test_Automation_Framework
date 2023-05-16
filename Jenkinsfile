@@ -28,12 +28,10 @@ pipeline {
 		stage('Build') {
 			steps{
 			// bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
-             bat "MSBuild"
+             bat "MSBuild.exe ATM_Test_Automation_Framework.sln
 			}
 		}
-	
-	
-	
+		
         stage('API Tests') {
             steps {
                 // Use MSBuild to build the solution
