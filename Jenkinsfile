@@ -19,9 +19,8 @@ pipeline {
     
     parameters {
         // Parameter to select browser for UI tests
-        choice(
+        string(
             name: 'BROWSER',
-            choices: ['Chrome', 'Firefox', 'Safari'],
             description: 'Select browser to run UI tests against'
         )
     }
@@ -35,19 +34,21 @@ pipeline {
                 bat "dotnet vstest Tests/bin/Release/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API"
             }
             post {
+				always{
                 // Archive the test results
                 step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
+				}
             }
         }
         stage('UI Tests') {
             when {
-                // Run UI tests only if API tests pass
-                allOf {
-                    not {
-                        failed()
-                    }
-                    expression {
-                        params.BROWSER != null
+                // Run UI tests after API tests
+                expression {
+                    if(params.BROWSER == null){
+					  params.BROWSER == "CHROME"
+					} else{
+                      params.BROWSER == "${BROWSER}"
+					 }
                     }
                 }
             }
@@ -56,9 +57,11 @@ pipeline {
                 bat "dotnet vstest Tests/bin/Release/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
             }
             post {
+				always{
                 // Archive the test results and screenshots
                 step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
                 archiveArtifacts 'Tests/bin/Release/screenshots/*.png'
+				}
             }
         }
     }
