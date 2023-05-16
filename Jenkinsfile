@@ -52,10 +52,12 @@ pipeline {
                     }
 				   }
 				
-            steps {
+            steps { 
+				always{
 					// Use VSTest.Console.exe to run UI tests with selected browser
 					bat "dotnet vstest Tests/bin/Release/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
                   }
+				}
             post {
 					always{
 					// Archive the test results and screenshots
