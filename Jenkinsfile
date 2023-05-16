@@ -27,16 +27,9 @@ pipeline {
 	
     stages{
 	
-	  	stage('NuGet Package Restore') {
-            steps {
-                // Restore NuGet packages
-                bat 'C:\\nuget\\nuget.exe restore ATM_Test_Automation_Framework.sln'
-            }
-        }
-	
 		stage('Build') {
 			steps{
-			// bat "C:/nuget/nuget.exe restore ATM_Test_Automation_Framework.sln"
+			bat 'C:\\nuget\\nuget.exe restore ATM_Test_Automation_Framework.sln'
              bat 'MSBuild.exe ATM_Test_Automation_Framework.sln'
 			}
 		}
@@ -47,15 +40,8 @@ pipeline {
 				 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
 					}
-			}
-            post {
-				always{
-                // Archive the test results
-					//step([$class: 'NUnitPublisher', testResultsPattern: 'Tests/bin/Release/*.trx'])
-					junit 'Tests/bin/Debug/Tests.XML'
-					}
-				}
-			}
+			} 
+		}
 			
         stage('UI Tests') {
             when {
@@ -71,7 +57,7 @@ pipeline {
 				
             steps { 
 					// Use VSTest.Console.exe to run UI tests with selected browser
-					 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
 					bat "dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
                   }
 			 }
@@ -79,9 +65,8 @@ pipeline {
             post {
 					always{
 					// Archive the test results and screenshots
-					junit 'Tests/bin/Debug/Tests.XML'
 					archiveArtifacts 'Tests/Screenshots/*.png'
-						}
+					}
 				}		 
 		}
 		
