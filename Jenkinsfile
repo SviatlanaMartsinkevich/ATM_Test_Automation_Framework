@@ -27,8 +27,8 @@ pipeline {
     stages {
 		stage('Build') {
 			steps{
-			 bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
-             bat "dotnet build ATM_Test_Automation_Framework.sln --configuration Release"
+			// bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
+             bat "MSBuild"
 			}
 		}
 	
@@ -40,7 +40,7 @@ pipeline {
 				//bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
                // bat "dotnet build ATM_Test_Automation_Framework.sln --configuration Release"
                 // Use VSTest.Console.exe to run API tests
-                bat "dotnet vstest Tests/bin/Release/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API"
+                bat "dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API"
 				}
            // post {
 			//	always{
@@ -65,7 +65,7 @@ pipeline {
             steps { 
 				always{
 					// Use VSTest.Console.exe to run UI tests with selected browser
-					bat "dotnet vstest Tests/bin/Release/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
+					bat "dotnet vstest Tests/bin/Debug/UITests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
                   }
 				}
            // post {
