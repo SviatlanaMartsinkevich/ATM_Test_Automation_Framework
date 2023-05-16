@@ -8,8 +8,8 @@ pipeline {
 
     triggers {
         // Run on pull request to branch
-        pullRequest :
-            branchTargetBranch = 'master'
+       // pullRequest :
+            //branchTargetBranch = 'master'
             
         // Run on schedule (every day at 8am)
         cron('0 8 * * *')
