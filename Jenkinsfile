@@ -24,11 +24,18 @@ pipeline {
 			)
 	}
 
+	 stage('NuGet Package Restore') {
+            steps {
+                // Restore NuGet packages
+                bat 'nuget restore ATM_Test_Automation_Framework.sln'
+            }
+        }
+
     stages {
 		stage('Build') {
 			steps{
 			// bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
-             bat "MSBuild.exe ATM_Test_Automation_Framework.sln"
+             bat 'MSBuild.exe ATM_Test_Automation_Framework.sln'
 			}
 		}
 		
@@ -38,7 +45,7 @@ pipeline {
 				//bat "C:\nuget\nuget.exe restore ATM_Test_Automation_Framework.sln"
                // bat "dotnet build ATM_Test_Automation_Framework.sln --configuration Release"
                 // Use VSTest.Console.exe to run API tests
-                bat "dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API"
+                bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
 				}
            // post {
 			//	always{
