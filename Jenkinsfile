@@ -37,9 +37,9 @@ pipeline {
         stage('API Tests') {
             steps {
                // Use VSTest.Console.exe to run API 
-				 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
-					}
+				}
 			} 
 		}
 			
@@ -53,7 +53,7 @@ pipeline {
                       params.BROWSER == "${BROWSER}"
 					 }
                     }
-				   }
+				 }
 				
             steps { 
 					// Use VSTest.Console.exe to run UI tests with selected browser
@@ -69,13 +69,5 @@ pipeline {
 					}
 				}		 
 		}
-		
-		stage('Cleanup') {
-            steps {
-                // Clean the folder before running stages
-                sh 'rm -rf ATM_Test_Automation_Framework\\TestResults\\*'
-				sh 'rm -rf ATM_Test_Automation_Framework\\Tests\\Screenshots\\*'
-            }
-        }
     }
 }
