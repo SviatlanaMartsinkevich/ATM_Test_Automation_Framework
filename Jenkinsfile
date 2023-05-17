@@ -25,7 +25,7 @@ pipeline {
 	}
 	
 	environment {
-		BROWSER_VAL = 'params.BROWSER' 
+		BROWSER_VAL = "${params.BROWSER}" 
 	}
 
 	
