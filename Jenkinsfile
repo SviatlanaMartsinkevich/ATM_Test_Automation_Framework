@@ -41,6 +41,13 @@ pipeline {
                 bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
 				}
 			} 
+			post {
+					always{
+					// Archive the test results and screenshots
+					   archiveArtifacts '**.trx'
+					  
+					}
+				}	
 		}
 			
         stage('UI Tests') {
@@ -65,9 +72,16 @@ pipeline {
             post {
 					always{
 					// Archive the test results and screenshots
-					archiveArtifacts 'Tests/Screenshots/*.png'
+					   archiveArtifacts '**.trx'
+					   archiveArtifacts '**.jpeg'
 					}
 				}		 
 		}
+    }
+	
+	 post {
+        // Archive all artifacts at the end of the pipeline run
+        archiveArtifacts '**.trx'
+        archiveArtifacts '**.jpeg'
     }
 }
