@@ -56,8 +56,8 @@ pipeline {
 		
 		stage('Prepare Config') {
 					steps {
-						sh 'envsubst < Tests/app.config.template > Tests/App.config'
-						sh 'envsubst < Core/app.config.template > Core/App.config'
+						sh 'envsubst < ${WORKSPACE}/Tests/app.config.template > ${WORKSPACE}/Tests/App.config'
+						sh 'envsubst < ${WORKSPACE}/Core/app.config.template > ${WORKSPACE}/Core/App.config'
 						echo "Path to app.config.template: ${WORKSPACE}/app.config.template"
 					}
 				}
