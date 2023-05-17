@@ -56,7 +56,7 @@ pipeline {
 		
 		stage('Prepare Config') {
 					steps {
-						sh 'envsubst < app.config.template > app.config'
+						sh 'envsubst < app.config.template > App.config'
 					}
 				}
 			
