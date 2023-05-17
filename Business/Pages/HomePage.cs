@@ -34,7 +34,6 @@ namespace Business.Pages
                     Log.Info("CareersLink doesnt visible. Reloading page...");
                     count++;
                     Helper.ReloadPage();
-                    Thread.Sleep(20000);
                 }
             } 
             return null;

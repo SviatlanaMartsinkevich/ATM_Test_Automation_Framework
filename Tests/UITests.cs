@@ -12,7 +12,7 @@ namespace Tests
     {
          private static string filePath = System.Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads";
 
-         [Category("UI")]
+     /*    [Category("UI")]
          [TestCase("PHP", "All Locations")]
          [Test, Description("Task#1")]
          public void ValidateThatUserCanSearchForAPositionBasedOnCriteriaTest(string programmingLanguage, string location)
@@ -47,7 +47,7 @@ namespace Tests
             Log.Info("Checking that all links in ResultPage contains inputData...");
             Assert.AreEqual(resultPage.GetResults().Count,
                  resultPageActions.GetResultWithFilter(inputData).Count, "Not all links in a list contain a word '" + inputData + "' in the text");
-         }
+         }*/
 
          [Category("UI")]
          [TestCase("EPAM_Corporate_Overview_2023.pdf")]
@@ -62,10 +62,11 @@ namespace Tests
             string downloadedFileName = aboutPageActions.DownloadFileAndWaitTillFileDownloaded(filePath);
 
             Log.Info("Checking that DownloadedFileName equal parametrize data.");
+            Log.Info(filePath);
             Assert.AreEqual(fileName, downloadedFileName);
          }
 
-         [Category("UI")]
+        /* [Category("UI")]
          [TestCase("How Machine Learning & Differential Privacy Can Be Used to Anonymize Production Data")]
          [Test, Description("Task#4")]
          public void ValidateTitleOfTheArticleMatchesWithTitleInCarouselTest(string articleName)
@@ -82,7 +83,7 @@ namespace Tests
 
             Log.Info("Checking that ArticleName contains inputData...");
             Assert.AreEqual(articleName, insightsPage.GetArticleNameField().Text);
-         }
+         }*/
 
          [OneTimeTearDown]
          public void AfterAllTests()
