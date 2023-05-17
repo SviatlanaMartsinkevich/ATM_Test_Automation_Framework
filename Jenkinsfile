@@ -44,7 +44,7 @@ pipeline {
 			post {
 					always{
 					// Archive the test results and screenshots
-					   archiveArtifacts '**.trx'
+					   archiveArtifacts 'TestResults/**.trx'
 					  
 					}
 				}	
@@ -72,8 +72,8 @@ pipeline {
             post {
 					always{
 					// Archive the test results and screenshots
-					   archiveArtifacts '**.trx'
-					   archiveArtifacts '**.jpeg'
+					   archiveArtifacts 'TestResults/**.trx'
+					   archiveArtifacts 'Tests/bin/Debug/**.Jpeg'
 					}
 				}		 
 		}
@@ -82,8 +82,8 @@ pipeline {
 	 post {
 		always{
         // Archive all artifacts at the end of the pipeline run
-        archiveArtifacts '**.trx'
-        archiveArtifacts '**.jpeg'
+        archiveArtifacts 'TestResults/**.trx'
+        archiveArtifacts 'Tests/bin/Debug/**.Jpeg'
 		}
     }
 }
