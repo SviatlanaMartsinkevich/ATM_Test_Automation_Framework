@@ -80,8 +80,10 @@ pipeline {
     }
 	
 	 post {
+		always{
         // Archive all artifacts at the end of the pipeline run
         archiveArtifacts '**.trx'
         archiveArtifacts '**.jpeg'
+		}
     }
 }
