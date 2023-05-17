@@ -56,9 +56,9 @@ pipeline {
 		
 		stage('Prepare Config') {
 					steps {
-					sh 'echo $PATH'
-						//sh 'envsubst < ${WORKSPACE}/Tests/App.config.template > ${WORKSPACE}/Tests/App.config'
-						//sh 'envsubst < ${WORKSPACE}/Core/App.config.template > ${WORKSPACE}/Core/App.config'
+					
+						sh 'sed < ${WORKSPACE}/Tests/App.config.template > ${WORKSPACE}/Tests/App.config'
+						//sh 'sed < ${WORKSPACE}/Core/App.config.template > ${WORKSPACE}/Core/App.config'
 					}
 				}
 			
