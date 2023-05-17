@@ -25,7 +25,7 @@ pipeline {
 	}
 	
 	environment {
-		BROWSER_VAL = params.BROWSER 
+		BROWSER_VAL = 'params.BROWSER' 
 	}
 
 	
@@ -53,6 +53,12 @@ pipeline {
 					}
 				}	
 		}
+		
+		stage('Prepare Config') {
+					steps {
+						sh 'envsubst < app.config.template > app.config'
+					}
+				}
 			
         stage('UI Tests') {
             when {
@@ -65,12 +71,7 @@ pipeline {
 					 }
                     }
 				 }
-				 
-			stage('Prepare Config') {
-					steps {
-						sh 'envsubst < app.config.template > app.config'
-					}
-				}
+				
 				
             steps { 
 					// Use VSTest.Console.exe to run UI tests with selected browser
