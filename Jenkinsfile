@@ -12,7 +12,7 @@ pipeline {
             //branchTargetBranch = 'master'
             
         // Run on schedule (every day at 8am)
-        cron('*/1 * * * *')
+        cron('0 8 * * *')
         // Run by manual start
     }
     
