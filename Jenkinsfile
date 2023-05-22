@@ -54,13 +54,13 @@ pipeline {
 				}	
 		}
 		
-		stage('Prepare Config') {
-					steps {
-					
-						sh 'envsubst < Tests/App.config'
-						sh 'envsubst < Core/App.config'
-					}
-				}
+		//stage('Prepare Config') {
+			//steps {
+		//			
+		//				sh 'envsubst < Tests/App.config'
+		//				sh 'envsubst < Core/App.config'
+		//			}
+		//		}
 			
         stage('UI Tests') {
             when {
