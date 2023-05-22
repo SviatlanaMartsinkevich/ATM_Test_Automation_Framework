@@ -18,7 +18,7 @@ pipeline {
 	}
 
     triggers {
-        // Run on pull request to branch
+
       genericTrigger(
             triggerName: 'Pull Request Trigger',
             token: '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',
@@ -29,12 +29,10 @@ pipeline {
             ],
             causeString: 'Pull Request Event',
             printContributedVariables: true
+			)
 			
-        // Run on schedule (every day at 8am)
         cron('0 8 * * *')
-        // Run by manual start
     }
-    
     
     stages{
 	
