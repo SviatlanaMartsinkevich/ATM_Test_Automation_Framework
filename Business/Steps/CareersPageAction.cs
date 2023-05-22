@@ -28,7 +28,7 @@ namespace Business.Steps
         {
             page = new CareersPage(driver);
             Log.Info("Click search location field");
-            page.GetSearchLocationField().Click();
+            ScrollToElementAndClickWithActions(page.GetSearchLocationField());
             return page;
         }
 

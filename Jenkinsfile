@@ -2,21 +2,10 @@ pipeline {
     agent any
 
     options {
-        // Enable build retention to keep build history
-        buildDiscarder(logRotator(numToKeepStr: '10'))
+          buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
-    triggers {
-        // Run on pull request to branch
-       // pullRequest :
-            //branchTargetBranch = 'master'
-            
-        // Run on schedule (every day at 8am)
-        cron('0 8 * * *')
-        // Run by manual start
-    }
-    
-    parameters {
+	parameters {
         // Parameter to select browser for UI tests
         string(
             name: 'BROWSER',
@@ -28,43 +17,49 @@ pipeline {
 		BROWSER_VAL = "${params.BROWSER}" 
 	}
 
-	
+    triggers {
+        // Run on pull request to branch
+      genericTrigger(
+            triggerName: 'Pull Request Trigger',
+            token: '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',
+            genericVariables: [
+                [key: 'action', value: '$.action'],
+                [key: 'pullRequestId', value: '$.pull_request.id'],
+                [key: 'branch', value: '$.pull_request.head.ref']
+            ],
+            causeString: 'Pull Request Event',
+            printContributedVariables: true
+			
+        // Run on schedule (every day at 8am)
+        cron('H 8 * * *')
+        // Run by manual start
+    }
+    
+    
     stages{
 	
 		stage('Build') {
 			steps{
 			bat 'C:\\nuget\\nuget.exe restore ATM_Test_Automation_Framework.sln'
-             bat 'MSBuild.exe ATM_Test_Automation_Framework.sln'
+            bat 'MSBuild.exe ATM_Test_Automation_Framework.sln'
 			}
 		}
 		
         stage('API Tests') {
             steps {
-               // Use VSTest.Console.exe to run API 
 				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 bat 'dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=API'
 				}
 			} 
 			post {
 					always{
-					// Archive the test results and screenshots
 					   archiveArtifacts 'TestResults/**.trx'
-					  
-					}
+					 }
 				}	
 		}
-		
-		//stage('Prepare Config') {
-			//steps {
-		//			
-		//				sh 'envsubst < Tests/App.config'
-		//				sh 'envsubst < Core/App.config'
-		//			}
-		//		}
 			
         stage('UI Tests') {
-            when {
-                // Run UI tests after API tests
+            when { 
                 expression {
                     if(params.BROWSER == null){
 					  params.BROWSER == "CHROME"
@@ -75,8 +70,7 @@ pipeline {
 				 }
 				
 				
-            steps { 
-					// Use VSTest.Console.exe to run UI tests with selected browser
+            steps {
 					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
 					bat "dotnet vstest Tests/bin/Debug/Tests.dll --logger:trx --TestCaseFilter:TestCategory=UI"
                   }
@@ -84,7 +78,6 @@ pipeline {
 				
             post {
 					always{
-					// Archive the test results and screenshots
 					   archiveArtifacts 'TestResults/**.trx'
 					   archiveArtifacts 'Tests/bin/Debug/**.Jpeg'
 					}
@@ -94,7 +87,6 @@ pipeline {
 	
 	 post {
 		always{
-        // Archive all artifacts at the end of the pipeline run
         archiveArtifacts 'TestResults/**.trx'
         archiveArtifacts 'Tests/bin/Debug/**.Jpeg'
 		}

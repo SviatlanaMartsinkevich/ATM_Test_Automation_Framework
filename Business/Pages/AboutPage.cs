@@ -21,7 +21,7 @@ namespace Business.Pages
 
         public IWebElement GetDownloadButton()
         {
-            return wait.Until(ExpectedConditions.ElementIsVisible(downloadButton));
+            return wait.Until(ExpectedConditions.ElementExists(downloadButton));
         }
     }
 }

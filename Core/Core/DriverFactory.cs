@@ -7,6 +7,7 @@ using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager;
 using WebDriverManager.Helpers;
 using log4net;
+using OpenQA.Selenium.Interactions;
 
 namespace Core.Core
 {
@@ -64,7 +65,7 @@ namespace Core.Core
              {
                 Log.Info("Broser is working in headless mode");
                 edgeOptions.AddArguments("headless");
-                edgeOptions.AddArguments("--window-size=1325x744");
+                edgeOptions.AddArguments("--window-size=1920,1080");
              }
 
             return edgeOptions;
@@ -89,14 +90,17 @@ namespace Core.Core
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.PageLoadStrategy = PageLoadStrategy.Normal;
             chromeOptions.AddArguments("--disable-extensions");
-            chromeOptions.AddArguments("--disable-gpu");
-
+  
             if (ConfigurationsManager.GetHeadless().Equals("true"))
             {
                 Log.Info("Broser is working in headless mode");
                 chromeOptions.AddArguments("headless");
                 chromeOptions.AddArguments("--window-size=1920,1080");
             }
+
+            chromeOptions.AddArguments("--disable-gpu");
+            chromeOptions.AddArgument("--no-sandbox");
+
 
             return chromeOptions;
         }

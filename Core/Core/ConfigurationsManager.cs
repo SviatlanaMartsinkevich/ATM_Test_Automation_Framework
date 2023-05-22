@@ -16,9 +16,10 @@ namespace Core.Core
         public static string GetBrowser()
         {
             if (Environment.GetEnvironmentVariable("BROWSER_VAL") != null)
-            { 
-            return Environment.GetEnvironmentVariable("BROWSER_VAL");
-             } else
+            {
+                return Environment.GetEnvironmentVariable("BROWSER_VAL");
+            }
+            else
             {
                 return ConfigurationManager.AppSettings.Get("BROWSER");
             }
