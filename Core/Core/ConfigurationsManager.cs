@@ -15,7 +15,8 @@ namespace Core.Core
         }
         public static string GetBrowser()
         {
-            return ConfigurationManager.AppSettings.Get("BROWSER");
+          // Initializer.ProcessCommandLineArgs("BROWSER");
+            return Environment.GetEnvironmentVariable("BROWSER_VAL");
         }
         public static string GetHeadless()
         {
