@@ -19,7 +19,7 @@ pipeline {
 
     triggers {
 
-      genericTrigger(
+      GenericTrigger(
             triggerName: 'Pull Request Trigger',
             token: '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',
             genericVariables: [
