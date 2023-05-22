@@ -52,7 +52,7 @@ namespace Business.Steps
         {
             page = new CareersPage(driver);
             Log.Info("Click Find button...");
-            page.GetFindButton().Click();
+            ClickButtonWithIJSExecutor(page.GetFindButton());
             return page;
         }
 
