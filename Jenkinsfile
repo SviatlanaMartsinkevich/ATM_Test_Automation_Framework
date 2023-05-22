@@ -20,7 +20,7 @@ pipeline {
     triggers {
 
       GenericTrigger(
-            token: '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',
+            token: env.TOKEN,
             genericVariables: [
                 [key: 'action', value: '$.action'],
                 [key: 'pullRequestId', value: '$.pull_request.id'],
