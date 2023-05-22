@@ -149,7 +149,6 @@
     <Compile Include="Core\ConfigurationsManager.cs" />
     <Compile Include="Core\DriverFactory.cs" />
     <Compile Include="Core\DriverHolder.cs" />
-    <Compile Include="Core\Initializer.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Helper\ScreenshotMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

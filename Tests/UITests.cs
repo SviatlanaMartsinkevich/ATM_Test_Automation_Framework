@@ -59,10 +59,11 @@ namespace Tests
             homePageActions.ClickAboutLink();
 
             AboutPageActions aboutPageActions = new AboutPageActions(DriverHolder.Driver);
+            Log.Info("Filepath is" + filePath);
+            Log.Info("USERPROFILE is" + System.Environment.GetEnvironmentVariable("USERPROFILE"));
             string downloadedFileName = aboutPageActions.DownloadFileAndWaitTillFileDownloaded(filePath);
 
             Log.Info("Checking that DownloadedFileName equal parametrize data.");
-            Log.Info(filePath);
             Assert.AreEqual(fileName, downloadedFileName);
          }
 
