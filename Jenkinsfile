@@ -20,7 +20,6 @@ pipeline {
     triggers {
 
       GenericTrigger(
-            triggerName: 'Pull Request Trigger',
             token: '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',
             genericVariables: [
                 [key: 'action', value: '$.action'],
